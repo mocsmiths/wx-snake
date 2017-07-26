@@ -1,5 +1,7 @@
 var startX = 0;
 var startY = 0;
+var moveX = 0;
+var moveY = 0;
 var X = 0;
 var Y = 0;
 Page({
@@ -7,13 +9,13 @@ Page({
   canvasStart:function(e){
     startX = e.touches[0].x;
     startY = e.touches[0].y;
-    Console.log(e);
+    //Console.log(e);
   },
   canvasMove:function(e){
     moveX = e.touches[0].x;
     moveY = e.touches[0].y;
 
-    X = moveX-startX;
+    X = moveX - startX;
     Y = moveY - startY;
 
     if(Math.abs(X)>Math.abs(Y) && X>0){
