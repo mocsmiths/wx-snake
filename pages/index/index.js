@@ -1,3 +1,4 @@
+//7.26
 var startX = 0;
 var startY = 0;
 var moveX = 0;
