@@ -11,6 +11,8 @@ var snakeHead = {
   w:20,
   h:20
 }
+
+var snakeBodys = [];
 var direction = null;
 var snakeDirection = "right";
 Page({
@@ -44,9 +46,28 @@ Page({
     var context = wx.createContext();
 
     var frameNum = 0;
+
+    function draw(obj){
+      context.setFillStyle(obj.color);
+      context.beginPath();
+      context.rect(obj.x,obj.y,obj.w,obj.h);
+      context.closePath();
+      context.fill();
+    }
+
     function animate(){
         frameNum++;
         if (frameNum %20 ==0){
+          snakeBodys.push({
+        x:snakeHead.x,
+        y:snakeHead.y,
+        w:20,
+        h:20,
+        color:"#00ff00"
+      });
+      if (snakeBodys.length > 4) {
+        snakeBodys.shift();
+      }
           switch (snakeDirection){
         case "left":
           snakeHead.x -= snakeHead.w;
@@ -61,13 +82,16 @@ Page({
           snakeHead.y += snakeHead.h;
         break;
       }
-        }
-     
-      context.setFillStyle(snakeHead.color);
-      context.beginPath();
-      context.rect(snakeHead.x,snakeHead.y,snakeHead.w,snakeHead.h);
-      context.closePath();
-      context.fill();
+
+      
+  }
+     draw(snakeHead);
+      
+      for(var i=0;i<snakeBodys.length;i++){
+        var snakeBody = snakeBodys[i];
+        draw(snakeBody);
+      }
+
       wx.drawCanvas({
         canvasId:"snakeCanvas",
         actions:context.getActions()
