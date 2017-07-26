@@ -43,7 +43,26 @@ Page({
   onReady:function(){
     var context = wx.createContext();
 
+    var frameNum = 0;
     function animate(){
+        frameNum++;
+        if (frameNum %20 ==0){
+          switch (snakeDirection){
+        case "left":
+          snakeHead.x -= snakeHead.w;
+        break;
+        case "right":
+          snakeHead.x += snakeHead.w;
+        break;
+        case "top":
+          snakeHead.y -= snakeHead.h;
+        break;
+        case "down":
+          snakeHead.y += snakeHead.h;
+        break;
+      }
+        }
+     
       context.setFillStyle(snakeHead.color);
       context.beginPath();
       context.rect(snakeHead.x,snakeHead.y,snakeHead.w,snakeHead.h);
